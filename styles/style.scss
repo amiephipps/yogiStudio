@@ -1,0 +1,707 @@
+@import "setup";
+
+$red: #ff6666;
+$darkGrey: #333333;
+$grey: #999999;
+$lightGrey: #F4F4F4;
+
+@mixin bp($point) {
+  
+  $large: "(max-width: 1080px)";
+  $medium: "(max-width: 960px)";
+  $small: "(max-width: 768px)";
+  $mobile: "(max-width: 480px)";
+  $mini: "(max-width: 320px)";
+
+  @if $point == large {
+    @media #{$large} { @content; }
+  }
+  @else if $point == medium {
+    @media #{$medium} { @content; }
+  }
+  @else if $point == small {
+    @media #{$small}  { @content; }
+  }
+  @else if $point == mobile {
+  	@media #{$mobile} { @content; }
+  }
+  @else if $point == mini {
+  	@media #{$mini} { @content; }
+  }
+}
+
+@mixin fontSize($fontSize) {
+	font-size: $fontSize * 1px;
+	font-size: ($fontSize / 10) *1rem;
+}
+
+.flexParent {
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: row;
+}
+
+.afterLine {
+	content: " ";
+	width: 25px;
+	height: 1px;
+	background: black;
+	display: block;
+	margin: 15px auto 0;
+}
+
+.sectionHeader {
+	text-align: center;
+	padding-top: 5rem;
+	@include bp(mobile) {
+		padding-top: 1rem;
+	}
+	> div span {
+		color: $red;
+	}
+	> div h2 {
+		position: relative;
+	}
+	> div h2::after {
+		@extend .afterLine;
+	}
+}
+
+body { 
+	font-family: 'PT Sans', sans-serif;
+	margin-top: 48px;
+	@include bp(mobile) {
+		margin-top: 0;
+	}
+	h1 {
+		@include fontSize(48);
+		color: white;
+		text-transform: uppercase;
+		margin: 0
+	}
+	h2 {
+		@include fontSize(36);
+		text-transform: uppercase;
+	}
+	h3 {
+		@include fontSize(19);
+		font-weight: 400;
+	}
+	h4 {
+		@include fontSize(14);
+		text-transform: uppercase;
+		font-weight: 400;
+	}
+	ul {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+	a {
+		text-decoration: none;
+		color: black;
+	}
+	img {
+		max-width: 100%;	
+	}
+	.wrapper {
+		max-width: 1200px;
+		margin: 0 auto;
+	}
+}
+
+header {
+	background: url(../assets/header-herobg.jpg) no-repeat;
+	height: 80vh;
+	@include bp(mobile) {
+		height: 100vh;
+	}
+	.navBleed {
+		background: $darkGrey;
+		padding: .5rem;
+		position: fixed;
+		z-index: 9999;
+		width: 100%;
+		top: 0;
+		@include bp(mobile) {
+			position: static;
+		}
+		.navBar {
+			@extend .flexParent;
+			justify-content: space-between;
+			@include bp(medium) {
+				width: 100%;
+				margin: 0;
+			}
+			@include bp(small) {
+				justify-content: space-between;
+				margin: 0;
+			}
+			@include bp(mobile) {
+				flex-direction: column;
+				margin: 2% auto;
+			}
+			ul {
+				@extend .flexParent;
+				justify-content: space-between;
+				align-items: center;
+				@include bp(mobile) {
+					flex-direction: column;
+					margin-top: 1%;
+				}
+				li:last-child {
+					border-left: 1px white solid;
+					@include bp(mobile) {
+						border-left: none;
+					}
+				}
+				li {
+					@include bp(mobile) {
+						width:80%;
+						border-bottom: 1px grey solid;
+					}
+					li:active {
+						@include bp(mobile) {
+							background: black;
+						}
+					}
+				}
+				a {
+					padding: 1.6rem;
+					color: white;
+					@include fontSize(13);
+					@include bp(mobile) {
+						@include fontSize(20);
+						display: block;
+						text-align: center;
+					}
+				}
+				a:hover {
+					color: $red;
+				}
+			}
+		}
+	}
+	.feature {
+		@extend .flexParent;
+		justify-content: space-around;
+		@include bp(mobile) {
+			display: none;
+		}
+		div {
+			flex: 1 0 50%;
+			margin-top: 10rem;
+			@include bp(large) {
+				margin-top: 14rem;
+			}	
+			@include bp(medium) {
+				margin-top: 19rem;
+			}
+			@include bp(mobile) {
+				margin-top: 15rem;
+			}
+			p {
+				@include fontSize(16);
+				color: white;
+				margin: 0;
+			}
+		}
+		> div:nth-of-type(1) {
+			@include bp(small) {
+				margin-top: 15rem;
+			}
+		}
+		> div:nth-of-type(2) {
+			@include bp(small) {
+				margin-top: 26rem;
+			}
+		}
+		> div:nth-of-type(2) img {
+			@include bp(mobile) {
+				display: none;
+			}
+		}
+	}
+}
+
+.aboutBleed {
+	background: $lightGrey;
+	margin-top: 5rem;
+	padding: 6rem 0;
+	@include bp(mobile) {
+		padding: 0;
+	}
+	.about {
+		@extend .flexParent;
+		justify-content: space-around;
+		text-align: center;
+		flex-direction: row;
+		@include bp(mobile) {
+			flex-direction: column;
+		}
+		& > div {
+			width: 30%;
+			@include bp(mobile) {
+				width: 90%;
+				margin: 7% auto;
+			}
+		}
+		& > div span {
+			color: $red;
+			@include fontSize(12);
+			padding: 0 .3rem;
+		}
+		i {
+			color: $red;
+		}
+		p {
+			color: grey;
+			@include fontSize(14);
+		}
+	}
+}
+
+.trainers {
+	@extend .sectionHeader;
+	.trainersDescription {
+		@extend .flexParent;
+		justify-content: space-around;
+		> div {
+			width: 23%;
+			margin: 3rem 0;
+ 			background: $lightGrey;
+ 			@include bp(mobile) {
+ 				margin: 4% auto;
+ 				width: 45%;
+ 			}
+		}
+		> div h3 {
+			margin-bottom: .5rem;
+		}
+		> div p {
+			@include fontSize(14);
+			color: grey;
+			margin-bottom: 2rem;
+		}
+		> div p::after {
+			@extend .afterLine;
+		}
+	}
+}
+
+.loveYogiBleed {
+	background: url(../assets/testimonial-bg.jpg) no-repeat;
+	text-align: center;
+	margin: 2rem 0;
+	.loveYogi {
+		 margin: 0 auto;
+		 padding: 10rem 0;
+		 @include bp(mini) {
+		 	padding: 0;
+		 }
+		 h1 {
+		 	font-weight: 400;
+		 }
+		 blockquote {
+		 	color: white;
+		 	@include fontSize(18);
+		 	font-weight: 400;
+		 	font-style: italic;
+		 	letter-spacing: 1px;
+		 	line-height: 2;
+		 	padding: 6rem 0;
+		 	text-shadow: 1px 1px 0px grey;
+		 	@include bp(mobile) {
+		 		padding: 0 0;
+		 	}
+		 }
+		 p {
+		 	@include fontSize(14);
+		 	margin: 0;
+		 	letter-spacing: 1px;
+		 }
+		 p:nth-of-type(1) {
+		 	color: $red;
+		 }
+		 p:nth-of-type(2) {
+		 	color: grey;
+		 	font-style: italic;
+		 }
+	}
+}
+
+.blog {
+	@extend .sectionHeader;
+	.blogPosts {
+		@extend .flexParent;
+		justify-content: space-around;
+		text-align: left;
+		@include bp(mobile) {
+			flex-direction: column;
+		}
+		> div {
+			width: 30%;
+			@extend .flexParent;
+			flex-direction: column;
+			margin: 0 1rem;
+			position: relative;
+			@include bp(mobile) {
+				width: 90%;
+				margin: 5% auto;
+			}
+		   div > i {
+				padding: 1.2rem;
+				background: $red;
+				color: white;
+				position: absolute;
+				top: 48.6%;
+				@include bp(large) {
+					top: 43.8%;
+				}
+				@include bp(medium) {
+					top: 40.6%;
+				}
+				@include bp(small) {
+					top: 30.7%;
+				}
+				@include bp(mobile) {
+					top: 48.7%;
+					left: 0;
+				}
+				@include bp(mini) {
+					top: 40.5%;
+				}
+			}
+			h3 {
+				margin-bottom: 0;
+			}
+			p:first-of-type {
+				color: grey;
+				@include fontSize(13);
+				font-style: italic;
+				margin-top: 2%;
+			}
+			h4 {
+				color: $darkGrey;
+				margin: 1% 0 5%;
+			}
+			span {
+				padding-left: .5rem;
+				@include fontSize(14);
+			}
+		}
+	}
+}
+
+.packageBleed {
+	background: $lightGrey;
+	text-align: center;
+	margin-top:5%;
+	padding: 3rem 0;
+	.package {
+		h2 {
+			font-weight: 400;
+		}
+		h3 {
+			color: grey;
+		}
+		.packageOptions {
+			@extend .flexParent;
+			justify-content: space-around;
+			margin: 7% 0;
+			> div {
+				transition: all 2s;
+				width: 23%;
+				box-shadow: 0 0 15px grey;
+				position: relative;
+				overflow: hidden;
+				@include bp(mobile) {
+					width: 45%;
+					margin: 3% auto;
+				}
+			}
+			div .packageName {
+				position: relative;
+				z-index: 10;
+				h3 {
+					margin: 5% 0;
+					color: white;
+					@include bp(small) {
+						@include fontSize(14);
+					}
+				}
+				h4 {
+					text-transform: none;
+					color: white;
+				}
+			}
+			div .packagePrice {
+				background: F6F6F6;
+				@include fontSize(80);
+				p {
+					margin: 7rem auto 2rem;
+				}
+				sup {
+					@include fontSize(30);
+					position: relative;
+					top: -4rem;
+				}
+			}
+			.triangle {
+				position: absolute;
+				top: 0;
+				padding-left:50%;
+				padding-top: 50%;
+				overflow: hidden;
+				&:after {
+					content: "";
+					display: block;
+					width: 0;
+					height: 0;
+					margin-top:-480px;
+					transition: 0.75s all;
+					margin-left:-1800px;
+					border-left: 1800px solid transparent;
+					border-right: 1800px solid transparent;
+				}
+			}
+			.p1 .triangle:after {
+				border-top: 47rem solid lightgrey;
+				@include bp(medium) {
+					border-top: 50rem solid lightgrey;
+				}
+				@include bp(mini) {
+					border-top: 53rem solid lightgrey;
+				}
+			}
+			.p2 .triangle:after {
+				border-top: 47rem solid grey;
+				@include bp(medium) {
+					border-top: 50rem solid grey;
+				}
+				@include bp(mini) {
+					border-top: 53rem solid grey;
+				}
+			}
+			.p3 .triangle:after {
+				border-top: 47rem solid $darkGrey;
+				@include bp(medium) {
+					border-top: 50rem solid $darkGrey;
+				}
+				@include bp(mini) {
+					border-top: 53rem solid $darkGrey;
+				}
+			}
+			.p4 .triangle:after {
+				border-top: 47rem solid #1C1C1C;
+				@include bp(medium) {
+					border-top: 50rem solid #1C1C1C;
+				}
+				@include bp(mini) {
+					border-top: 53rem solid #1C1C1C;
+				}
+			}
+			.p1 li:last-child {
+				background: lightgrey;
+			}
+			.p2 li:last-child {
+				background: grey;
+			}
+			.p3 li:last-child {
+				background: $darkGrey;
+			}
+			.p4 li:last-child {
+				background: #1C1C1C;
+			}
+			> div:hover {
+				transform: scale(1.1);
+				li:last-child {
+					background: $red;
+				}
+				.triangle:after {
+					border-top: 47rem solid $red;
+					@include bp(medium) {
+						border-top: 50rem solid $red;
+					}
+					@include bp(mini) {
+						border-top: 53rem solid $red;
+					}
+				}
+				@include bp(mobile) {
+					transform: none;
+				}
+			}
+			> div li {
+				@include fontSize(14);
+				padding: 5% 0;
+				background: white;
+			}
+			> div li:nth-of-type(1) {
+				padding-top: 12%;
+			}
+			> div li:nth-of-type(2) {
+				border-top: 1px #F6F6F6 solid;
+				border-bottom: 1px #F6F6F6 solid;
+			}
+			> div li:nth-of-type(3) {
+				padding-bottom: 12%;
+			}
+			> div li:last-of-type {
+				padding: 5% 0;
+				a {
+					color: white;
+					text-transform: uppercase;
+				}
+			}
+			> div:nth-of-type(3) li:nth-of-type(3), > div:nth-of-type(4) li:nth-of-type(3) {
+				@include bp(small) {
+				padding-top: 2.8rem;
+				}
+			}
+		}
+	}
+}
+
+.signUp {
+	background: url(../assets/header-herobg.jpg) no-repeat;
+	text-align: center;
+	padding: 2rem 0 7rem;
+	p {
+		@include fontSize(30);
+	}
+	p, a, h3 {
+		color: white;
+	}
+	a {
+		padding: 1rem 8rem;
+		background: black;
+		@include fontSize(24);
+	}
+}
+
+footer {
+	background: $darkGrey;
+	padding-top: 3%;
+	.footer {
+		@extend .flexParent;
+		justify-content: space-around;
+		color: grey;
+		@include bp(mini) {
+			flex-direction: column;
+		}
+		> div {
+			width: 23%;
+			@include bp(mobile) {
+				width: 45%;
+				margin: 3% auto;
+			}
+			@include bp(mini) {
+				width: 90%;
+			}
+		}
+		h3 {
+			color: white;
+		}
+		h3:after {
+			content: " ";
+			width: 25px;
+			height: 1px;
+			background: white;
+			display: block;
+			margin: 15px 0;		
+		}
+		.address {
+			@include fontSize(14);
+			> div {
+				justify-content: space-around;
+				div {
+					width: 15%;
+					margin-top: 15%;
+					padding: 1rem;
+					border: 1px solid grey;
+					border-radius: 50%;
+					a {
+						@include fontSize(14);
+						color: $lightGrey;
+						padding-left: .5rem;
+						@include bp(large) {
+							padding-left: .3rem;
+						}
+						@include bp(mobile) {
+							padding-left: .5rem;
+						}
+					}	
+					@include bp(medium) {
+						padding: .6rem;
+					}
+					@include bp(small) {
+						padding: .4rem;
+					}
+					@include bp(mini) {
+						padding: 1rem;
+					}
+				}
+			}
+			address div, > div {
+				@extend .flexParent;
+				align-items: center;
+			}
+			p {
+				margin: 1.6% 0;
+			}
+			address div i {
+				width: 12%;
+			}
+		}
+		.twitter iframe {
+			width: 90% !important;
+		}
+		.quickLink li {
+			width:75%;
+			list-style: disc;
+			a {
+				padding: 3% 1%;
+				margin-left: 5%;
+				display: block;
+				color: grey;
+				@include fontSize(14);
+				&:hover {
+					color: $red;
+				}
+			}
+		}
+		.quickLink li:not(:last-child) {
+			border-bottom: 1px dashed grey;
+		}
+		.contactForm input[type=text], .contactForm input[type=email], .contactForm textarea {
+			color: grey;
+			text-transform: uppercase;
+			background: $darkGrey;
+			border: 2px solid grey;
+			display: block;
+			width: 85%;
+			padding: 2%;
+			margin: 3% 0;
+			resize: none;
+			@include fontSize(12);
+		}
+		.contactForm input[type=submit] {
+			background: $red;
+			color: white;
+			border: none;
+			padding: 3% 15%;
+			text-transform: uppercase;
+			@include fontSize(18);
+		}
+	}
+	.copyright {
+		margin-top: 3%;
+		background: black;
+		width: 100%;
+		padding: .5% 0;
+		text-align: center;
+		color: grey;
+	}
+}
+
+
